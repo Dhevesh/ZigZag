@@ -8,12 +8,13 @@ public class CharacterController : MonoBehaviour
     private Rigidbody rb;
     private bool walkingRight = true;
     public Transform rayStart;
+    public GameObject crystalEffect;
 
     private GameManager gameManager;
 
     private Animator anim;
 
-    public Text playerScore;
+    
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -78,9 +79,10 @@ public class CharacterController : MonoBehaviour
     {
         if (collider.tag == "Crystal")
         {
+            GameObject g = Instantiate(crystalEffect, rayStart.transform.position, Quaternion.identity);
+            Destroy(g, 2);
             Destroy(collider.gameObject);
             gameManager.IncreaseScore();
-            playerScore.text = gameManager.score.ToString();
         }
     }
 }
