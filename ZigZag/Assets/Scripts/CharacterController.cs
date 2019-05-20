@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 public class CharacterController : MonoBehaviour
 {
@@ -20,6 +17,7 @@ public class CharacterController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
         gameManager = FindObjectOfType<GameManager>();
+        transform.rotation = Quaternion.Euler(0, 45, 0);
     }
 
     private void FixedUpdate()
@@ -39,11 +37,11 @@ public class CharacterController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {   
-            Switch();
-        }
-        
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{   
+        //    Switch();
+        //}
+        PlayerController();
         RaycastHit hit;
         if (!Physics.Raycast(rayStart.position,-transform.up,out hit, Mathf.Infinity))
         {
@@ -83,6 +81,18 @@ public class CharacterController : MonoBehaviour
             Destroy(g, 2);
             Destroy(collider.gameObject);
             gameManager.IncreaseScore();
+        }
+    }
+
+    private void PlayerController()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            transform.rotation = Quaternion.Euler(0, -45, 0);
+        }
+        else if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            transform.rotation = Quaternion.Euler(0, 45, 0);
         }
     }
 }
