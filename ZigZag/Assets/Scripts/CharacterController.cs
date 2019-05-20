@@ -82,6 +82,11 @@ public class CharacterController : MonoBehaviour
             Destroy(collider.gameObject);
             gameManager.IncreaseScore();
         }
+
+        if (collider.name.Contains("RoadPart"))
+        {
+            FindObjectOfType<RoadController>().CleanUpRoad();
+        }
     }
 
     private void PlayerController()
